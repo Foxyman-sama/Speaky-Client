@@ -38,15 +38,41 @@ Page {
             anchors.fill: parent
 
             Button {
-                text: "Отправить"
                 Layout.preferredWidth: frame.button_width
                 Layout.preferredHeight: frame.button_height
+                Layout.alignment: Qt.AlignLeft
+
+                background: Rectangle {
+                    radius: 15
+                    color: "#2B9832"
+
+                    Text {
+                        text: "Отправить"
+                        color: "white"
+                        anchors.centerIn: parent
+                        font.pixelSize: 24
+                        font.family: "Inter"
+                    }
+                }
             }
 
             Button {
-                text: "Отключить"
                 Layout.preferredWidth: frame.button_width
                 Layout.preferredHeight: frame.button_height
+                Layout.alignment: Qt.AlignRight
+
+                background: Rectangle {
+                    radius: 15
+                    color: "#982B46"
+
+                    Text {
+                        text: "Отключить"
+                        color: "white"
+                        anchors.centerIn: parent
+                        font.pixelSize: 24
+                        font.family: "Inter"
+                    }
+                }
             }
         }
     }

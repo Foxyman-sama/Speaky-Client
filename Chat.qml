@@ -23,12 +23,12 @@ ListView {
 
         ListElement {
             name: "Kebab"
-            message: "Goodbye!"
+            message: "GoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbye!"
         }
     }
 
     delegate: MessageBox {
-        sender_name: model.name
+        sender_name: name
         message_box_text: message
     }
 }
