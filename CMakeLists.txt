@@ -19,6 +19,7 @@ qt_add_qml_module(appSpeaky-Client
         Main.qml
         QML_FILES MessageBox.qml
         QML_FILES MainPage.qml
+        QML_FILES Chat.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
