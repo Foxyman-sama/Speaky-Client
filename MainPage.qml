@@ -15,12 +15,24 @@ Page {
 
     TextField {
         id: text_field
+
         horizontalAlignment: Text.AlignHCenter
         anchors.bottom: bottom_panel.top
         anchors.left: parent.left
         anchors.right: parent.right
+
         width: 412
         height: 123
+
+        color: "black"
+        font.pixelSize: 24
+        font.family: "Inter"
+        wrapMode: Text.WrapAnywhere
+
+        background: Rectangle {
+            radius: 15
+            border.width: 2
+        }
     }
 
    BottomPanel {
