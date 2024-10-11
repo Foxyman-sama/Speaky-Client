@@ -11,6 +11,9 @@ ApplicationWindow {
     Page {
         id: page
         anchors.fill: parent
+        background: Rectangle {
+            color: "#D9D9D9"
+        }
 
         ListView {
             id: list_view
@@ -26,23 +29,8 @@ ApplicationWindow {
             model: ["Hello, Guys!", "YOU LOVE ME MORE",
                 "I really hate bananas and kebabs. Why? Idk, guys", "I really hate bananas and kebabs. Why? Idk, guys",
                 "I really hate bananas and kebabs. Why? Idk, guys", "I really hate bananas and kebabs. Why? Idk, guys"]
-            delegate: Rectangle {
-                color: "#443737"
-                radius: 15
-                width: list_view.width - list_view.leftMargin - list_view.rightMargin
-                height: message.height + 38
-
-                Text {
-                    id: message
-                    text: modelData
-                    anchors.centerIn: parent
-                    width: parent.width - 50
-                    color: "white"
-                    font.pixelSize: 24
-                    font.family: "Inter"
-                    wrapMode: Text.WrapAnywhere
-                    horizontalAlignment: Text.AlignHCenter
-                }
+            delegate: MessageBox {
+                message_box_text: modelData
             }
         }
 
