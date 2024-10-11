@@ -9,26 +9,8 @@ Page {
         color: "#D9D9D9"
     }
 
-    ListView {
-        id: list_view
-
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: text_field.top
-
-        topMargin: 48
-        leftMargin: 22
-        rightMargin: 22
-        bottomMargin: 48
-        spacing: 24
-
-        model: ["Hello, Guys!", "YOU LOVE ME MORE",
-            "I really hate bananas and kebabs. Why? Idk, guys", "I really hate bananas and kebabs. Why? Idk, guys",
-            "I really hate bananas and kebabs. Why? Idk, guys", "I really hate bananas and kebabs. Why? Idk, guys"]
-        delegate: MessageBox {
-            message_box_text: modelData
-        }
+    Chat {
+         anchors.bottom: text_field.top
     }
 
     TextField {
@@ -59,14 +41,12 @@ Page {
                 text: "Отправить"
                 Layout.preferredWidth: frame.button_width
                 Layout.preferredHeight: frame.button_height
-                anchors.left: parent.left
             }
 
             Button {
                 text: "Отключить"
                 Layout.preferredWidth: frame.button_width
                 Layout.preferredHeight: frame.button_height
-                anchors.right: parent.right
             }
         }
     }

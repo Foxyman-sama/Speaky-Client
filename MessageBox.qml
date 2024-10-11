@@ -2,8 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 
 Item {
-    required property string modelData
-
+    property alias sender_name: sender_name.text
     property alias message_box_text: message.text
     property color message_box_color: "#443737"
 
@@ -17,7 +16,7 @@ Item {
         Text {
             Layout.alignment: Qt.AlignHCenter
 
-            text: "Dima"
+            id: sender_name
             color: "black"
             font.pixelSize: 24
             font.family: "Inter"
