@@ -6,7 +6,7 @@ Item {
     property double button_width: 164
     property double button_height: 68
 
-    id: frame
+    id: root
     anchors.bottom: parent.bottom
     anchors.left: parent.left
     anchors.right: parent.right
@@ -18,8 +18,8 @@ Item {
         anchors.fill: parent
 
         Button {
-            Layout.preferredWidth: frame.button_width
-            Layout.preferredHeight: frame.button_height
+            Layout.preferredWidth: root.button_width
+            Layout.preferredHeight: root.button_height
             Layout.alignment: Qt.AlignLeft
             Layout.leftMargin: 6
 
@@ -46,8 +46,8 @@ Item {
         }
 
         Button {
-            Layout.preferredWidth: frame.button_width
-            Layout.preferredHeight: frame.button_height
+            Layout.preferredWidth: root.button_width
+            Layout.preferredHeight: root.button_height
             Layout.alignment: Qt.AlignRight
             Layout.rightMargin: 6
 

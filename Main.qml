@@ -7,6 +7,8 @@ ApplicationWindow {
     height: 794
     visible: true
     title: qsTr("Hello World")
+    minimumWidth: 412
+    minimumHeight: 794
 
     MainPage {}
 }

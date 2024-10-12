@@ -10,7 +10,7 @@ Page {
     }
 
     Chat {
-         anchors.bottom: text_field.top
+        anchors.bottom: bottom_panel.top
     }
 
     TextField {
@@ -23,6 +23,7 @@ Page {
 
         width: 412
         height: 123
+        clip: true
 
         color: "black"
         font.pixelSize: 24
@@ -35,7 +36,7 @@ Page {
         }
     }
 
-   BottomPanel {
-       id: bottom_panel
-   }
+    BottomPanel {
+        id: bottom_panel
+    }
 }

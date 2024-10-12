@@ -1,7 +1,7 @@
 import QtQuick
 
 ListView {
-    id: list_view
+    id: root
 
     anchors.top: parent.top
     anchors.left: parent.left
@@ -12,6 +12,7 @@ ListView {
     rightMargin: 22
     bottomMargin: 48
     spacing: 24
+    clip: true
 
     model: ListModel {
         id: model
