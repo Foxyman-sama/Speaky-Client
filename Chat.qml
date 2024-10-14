@@ -1,7 +1,7 @@
 import QtQuick
 
 ListView {
-    id: list_view
+    id: root
 
     anchors.top: parent.top
     anchors.left: parent.left
@@ -12,6 +12,7 @@ ListView {
     rightMargin: 22
     bottomMargin: 48
     spacing: 24
+    clip: true
 
     model: ListModel {
         id: model
@@ -28,7 +29,7 @@ ListView {
     }
 
     delegate: MessageBox {
-        sender_name: model.name
+        sender_name: name
         message_box_text: message
     }
 }
