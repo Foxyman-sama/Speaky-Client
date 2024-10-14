@@ -24,7 +24,7 @@ ListView {
 
         ListElement {
             name: "Kebab"
-            message: "GoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbyeGoodbye!"
+            message: "Goodbye!"
         }
     }
 
