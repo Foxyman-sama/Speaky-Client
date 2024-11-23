@@ -10,5 +10,19 @@ ApplicationWindow {
     minimumWidth: 412
     minimumHeight: 794
 
-    MainPage {}
+    StackView {
+        id: stack
+        initialItem: registration_form
+        anchors.fill: parent
+    }
+
+    Component {
+        id: main_page
+        MainPage {}
+    }
+
+    RegistrationForm {
+        id: registration_form
+        onRegistrate: stack.push(main_page)
+    }
 }
