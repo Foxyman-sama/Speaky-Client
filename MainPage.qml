@@ -4,7 +4,6 @@ import QtQuick.Layouts 2.15
 
 Rectangle {
   id: page
-  anchors.fill: parent
   color: "#D9D9D9"
 
   Chat {

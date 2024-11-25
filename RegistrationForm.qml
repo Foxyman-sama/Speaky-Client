@@ -6,7 +6,6 @@ Rectangle {
   signal registrate
 
   id: root
-  anchors.fill: parent
 
   ColumnLayout {
     anchors.fill: parent
