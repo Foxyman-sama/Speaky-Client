@@ -6,16 +6,16 @@
 #include <boost/asio.hpp>
 #include <istream>
 
+#include "chatmodel.h"
+
 class Backend : public QObject {
   Q_OBJECT
-  QML_ELEMENT
+
  public:
-  explicit Backend(QObject* parent = nullptr) : QObject { parent } {}
+  explicit Backend(QObject* parent = nullptr, ChatModel* model = nullptr) : QObject { parent }, model { model } {}
 
   Q_INVOKABLE void register_on_server(QString room_id, QString name) {
-    if (is_connected == false) {
-      connect();
-    }
+    connect();
 
     const auto sent_data { room_id.toStdString() + ';' + name.toStdString() + '@' };
     boost::asio::write(socket, boost::asio::buffer(sent_data));
@@ -46,7 +46,8 @@ class Backend : public QObject {
 
   boost::asio::io_context context;
   boost::asio::ip::tcp::socket socket { context };
-  bool is_connected { false };
+
+  ChatModel* model;
 };
 
 #endif  // BACKEND_H

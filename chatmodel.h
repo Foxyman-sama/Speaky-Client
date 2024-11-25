@@ -3,6 +3,11 @@
 
 #include <QAbstractListModel>
 
+struct UserMessage {
+  QString username;
+  QString message;
+};
+
 class ChatModel : public QAbstractListModel {
   Q_OBJECT
 
@@ -19,11 +24,14 @@ class ChatModel : public QAbstractListModel {
   // Editable:
   bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
 
+  void addUserMessage(UserMessage user_message);
+
   Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   QHash<int, QByteArray> roleNames() const override;
 
  private:
+  std::vector<UserMessage> user_messages;
 };
 
 #endif  // CHATMODEL_H

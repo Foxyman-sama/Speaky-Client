@@ -15,10 +15,6 @@ ApplicationWindow {
     initialItem: registration_form
     anchors.fill: parent
   }
-  // @disable-check M300
-  Backend {
-    id: backend
-  }
 
   Component {
     id: main_page

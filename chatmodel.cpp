@@ -8,7 +8,7 @@ int ChatModel::rowCount(const QModelIndex& parent) const {
   if (parent.isValid()) return 0;
 
   // FIXME: Implement me!
-  return 100;
+  return user_messages.size();
 }
 
 QVariant ChatModel::data(const QModelIndex& index, int role) const {
@@ -16,9 +16,9 @@ QVariant ChatModel::data(const QModelIndex& index, int role) const {
 
   switch (role) {
     case UsernameRole:
-      return QVariant { "Dima" };
+      return QVariant { user_messages[index.row()].username };
     case MessageRole:
-      return QVariant { QString { "Hello, World!" } };
+      return QVariant { user_messages[index.row()].message };
   }
 
   return QVariant();
@@ -32,6 +32,8 @@ bool ChatModel::setData(const QModelIndex& index, const QVariant& value, int rol
   }
   return false;
 }
+
+void ChatModel::addUserMessage(UserMessage user_message) { user_messages.emplace_back(user_message); }
 
 Qt::ItemFlags ChatModel::flags(const QModelIndex& index) const {
   if (!index.isValid()) return Qt::NoItemFlags;

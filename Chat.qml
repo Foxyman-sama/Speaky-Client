@@ -17,7 +17,7 @@ ListView {
   spacing: 24
   clip: true
 
-  model: ChatModel {}
+  model: chat_model
   delegate: MessageBox {
     sender_name: model.username
     message_box_text: model.message
