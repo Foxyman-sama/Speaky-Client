@@ -21,13 +21,10 @@ class Backend : public QObject {
     boost::asio::write(socket, boost::asio::buffer(sent_data));
     qDebug() << "sent data: " << sent_data;
 
-    boost::asio::streambuf buf;
-    boost::asio::read_until(socket, buf, '@');
-
-    std::istream is { &buf };
-    std::string received;
-    std::getline(is, received, '@');
-    qDebug() << "received data: " << received;
+    const auto status { receive() };
+    if (status == "OK") {
+      model->addUserMessage({ "Test", "Test" });
+    }
 
     emit register_on_serverEmitted();
   }
@@ -36,6 +33,17 @@ class Backend : public QObject {
   void register_on_serverEmitted();
 
  private:
+  QString receive() {
+    boost::asio::streambuf buf;
+    boost::asio::read_until(socket, buf, '@');
+
+    std::istream is { &buf };
+    std::string received;
+    std::getline(is, received, '@');
+    qDebug() << "received data: " << received;
+    return QString::fromStdString(received);
+  }
+
   void connect() {
     boost::asio::ip::tcp::resolver::query resolver_query { "127.0.0.1", "9090",
                                                            boost::asio ::ip::tcp::resolver::query::numeric_service };
