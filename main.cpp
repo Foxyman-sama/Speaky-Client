@@ -2,8 +2,12 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include "chatmodel.h"
+
 int main(int argc, char* argv[]) {
   QGuiApplication app(argc, argv);
+
+  qmlRegisterType<ChatModel>("ChatModel", 1, 0, "ChatModel");
 
   QQmlApplicationEngine engine;
   QObject::connect(

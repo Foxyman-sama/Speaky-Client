@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 2.15
+import ChatModel 1.0
 
 ListView {
   id: root
@@ -16,22 +17,9 @@ ListView {
   spacing: 24
   clip: true
 
-  model: ListModel {
-    id: model
-
-    ListElement {
-      name: "Dima"
-      message: "Hello!!"
-    }
-
-    ListElement {
-      name: "Kebab"
-      message: "Goodbye!"
-    }
-  }
-
+  model: ChatModel {}
   delegate: MessageBox {
-    sender_name: name
-    message_box_text: message
+    sender_name: model.username
+    message_box_text: model.message
   }
 }
