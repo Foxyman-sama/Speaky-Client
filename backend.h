@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <boost/asio.hpp>
+#include <istream>
 
 class Backend : public QObject {
   Q_OBJECT
@@ -11,7 +12,7 @@ class Backend : public QObject {
  public:
   explicit Backend(QObject* parent = nullptr) : QObject { parent } {}
 
-  Q_INVOKABLE void send(QString room_id, QString name) {
+  Q_INVOKABLE void register_on_server(QString room_id, QString name) {
     if (is_connected == false) {
       connect();
     }
@@ -20,11 +21,19 @@ class Backend : public QObject {
     boost::asio::write(socket, boost::asio::buffer(sent_data));
     qDebug() << "sent data: " << sent_data;
 
-    emit sendEmitted();
+    boost::asio::streambuf buf;
+    boost::asio::read_until(socket, buf, '@');
+
+    std::istream is { &buf };
+    std::string received;
+    std::getline(is, received, '@');
+    qDebug() << "received data: " << received;
+
+    emit register_on_serverEmitted();
   }
 
  signals:
-  void sendEmitted();
+  void register_on_serverEmitted();
 
  private:
   void connect() {
