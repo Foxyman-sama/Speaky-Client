@@ -28,7 +28,7 @@ ApplicationWindow {
   RegistrationForm {
     id: registration_form
     onRegistrate: {
-      backend.print()
+      backend.send(input_room_id_text, input_name_text)
       stack.push(main_page)
     }
   }

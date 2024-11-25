@@ -1,10 +1,12 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.16..3.30)
 
 project(Speaky-Client VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 26)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick)
+find_package(Boost REQUIRED CONFIG)
 
 qt_standard_project_setup(REQUIRES 6.5)
 
@@ -23,6 +25,7 @@ qt_add_qml_module(appSpeaky-Client
         QML_FILES BottomPanel.qml
         QML_FILES RegistrationForm.qml
         SOURCES backend.h backend.cpp
+        RESOURCES .clang-format
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -36,9 +39,14 @@ set_target_properties(appSpeaky-Client PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appSpeaky-Client
-    PRIVATE Qt6::Quick
+target_link_libraries(appSpeaky-Client PUBLIC
+    Qt6::Quick
+    ${BOOST_LIBRARIES}
 )
+
+target_include_directories(appSpeaky-Client PUBLIC ${BOOST_INCLUDE_DIRS})
+
+message(CHECK_START "${BOOST_INCLUDE_DIRS}")
 
 include(GNUInstallDirs)
 install(TARGETS appSpeaky-Client

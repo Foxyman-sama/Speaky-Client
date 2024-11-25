@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 2.15
 
 Rectangle {
+  property alias input_room_id_text: input_room_id.text
+  property alias input_name_text: input_name.text
   signal registrate
 
   id: root
