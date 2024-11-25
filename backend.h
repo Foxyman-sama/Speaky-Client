@@ -12,18 +12,16 @@ class Backend : public QObject {
   Q_OBJECT
 
  public:
-  explicit Backend(QObject* parent = nullptr, ChatModel* model = nullptr) : QObject { parent }, model { model } {}
+  explicit Backend(ChatModel& model, QObject* parent = nullptr) : model { model }, QObject { parent } {}
 
   Q_INVOKABLE void register_on_server(QString room_id, QString name) {
     connect();
 
-    const auto sent_data { room_id.toStdString() + ';' + name.toStdString() + '@' };
-    boost::asio::write(socket, boost::asio::buffer(sent_data));
-    qDebug() << "sent data: " << sent_data;
+    send(room_id + ';' + name + '@');
 
     const auto status { receive() };
     if (status == "OK") {
-      model->addUserMessage({ "Test", "Test" });
+      model.append({ "Test", "Test" });
     }
 
     emit register_on_serverEmitted();
@@ -33,6 +31,11 @@ class Backend : public QObject {
   void register_on_serverEmitted();
 
  private:
+  void send(QString sent_data) {
+    boost::asio::write(socket, boost::asio::buffer(sent_data.toStdString()));
+    qDebug() << "sent data: " << sent_data;
+  }
+
   QString receive() {
     boost::asio::streambuf buf;
     boost::asio::read_until(socket, buf, '@');
@@ -55,7 +58,7 @@ class Backend : public QObject {
   boost::asio::io_context context;
   boost::asio::ip::tcp::socket socket { context };
 
-  ChatModel* model;
+  ChatModel& model;
 };
 
 #endif  // BACKEND_H

@@ -27,7 +27,7 @@ QVariant ChatModel::data(const QModelIndex& index, int role) const {
   return QVariant();
 }
 
-void ChatModel::addUserMessage(UserMessage user_message) {
+void ChatModel::append(UserMessage user_message) {
   emit beginInsertRows(QModelIndex {}, user_messages.count(), user_messages.count());
   user_messages.insert(user_messages.count(), user_message);
   emit endInsertRows();

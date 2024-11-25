@@ -20,7 +20,7 @@ class ChatModel : public QAbstractListModel {
 
   QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
-  void addUserMessage(UserMessage user_message);
+  void append(UserMessage user_message);
 
   QHash<int, QByteArray> roleNames() const override;
 

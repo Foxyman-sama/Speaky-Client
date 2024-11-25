@@ -15,11 +15,11 @@ int main(int argc, char* argv[]) {
       &engine, &QQmlApplicationEngine::objectCreationFailed, &app, []() { QCoreApplication::exit(-1); },
       Qt::QueuedConnection);
 
-  Backend backend;
-  engine.rootContext()->setContextProperty("backend", &backend);
-
   ChatModel model;
   engine.rootContext()->setContextProperty("chat_model", &model);
+
+  Backend backend { model, nullptr };
+  engine.rootContext()->setContextProperty("backend", &backend);
 
   engine.loadFromModule("Speaky-Client", "Main");
 
