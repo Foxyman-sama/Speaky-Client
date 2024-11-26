@@ -1,28 +1,43 @@
-#ifndef BACKEND_H
-#define BACKEND_H
+#ifndef NETWORK_H
+#define NETWORK_H
 
 #include <QObject>
 #include <QQmlEngine>
 #include <boost/asio.hpp>
+#include <boost/property_tree/json_parser.hpp>
 #include <istream>
+#include <ostream>
 
+#include "Packages/packages.h"
 #include "chatmodel.h"
 
-class Backend : public QObject {
+class Network : public QObject {
   Q_OBJECT
 
  public:
-  explicit Backend(ChatModel& model, QObject* parent = nullptr) : model { model }, QObject { parent } {}
+  explicit Network(ChatModel& model, QObject* parent = nullptr) : model { model }, QObject { parent } {}
 
   Q_INVOKABLE void register_on_server(QString room_id, QString name) {
     connect();
 
-    send(room_id + ';' + name + '@');
+    // RegisterPackage register { "1", "Dima" };
 
-    const auto status { receive() };
-    if (status == "OK") {
-      model.append({ "Test", "Test" });
-    }
+    InternetPackage package;
+    RegisterPackage p { "1", "Dima" };
+    const auto json { p.make_json() };
+
+    std::ostringstream oss;
+    boost::property_tree::write_json(oss, json);
+
+    const auto json_str { oss.str() };
+    const auto json_size { json_str.size() };
+    std::memcpy(package.get_data(), &json_size, package.header_lentgh);
+
+    package.reallocate();
+    std::memcpy(package.get_body(), json_str.c_str(), package.get_body_length());
+
+    boost::asio::write(socket,
+                       boost::asio::buffer(package.get_data(), package.header_lentgh + package.get_body_length()));
 
     emit register_on_serverEmitted();
   }
@@ -61,4 +76,4 @@ class Backend : public QObject {
   ChatModel& model;
 };
 
-#endif  // BACKEND_H
+#endif  // NETWORK_H

@@ -19,15 +19,15 @@ QVariant ChatModel::data(const QModelIndex& index, int role) const {
   const auto& current_value { user_messages.at(row) };
   switch (role) {
     case UsernameRole:
-      return current_value.username;
+      return QString::fromStdString(current_value.username);
     case MessageRole:
-      return current_value.message;
+      return QString::fromStdString(current_value.text);
   }
 
   return QVariant();
 }
 
-void ChatModel::append(UserMessage user_message) {
+void ChatModel::append(MessagePackage user_message) {
   emit beginInsertRows(QModelIndex {}, user_messages.count(), user_messages.count());
   user_messages.insert(user_messages.count(), user_message);
   emit endInsertRows();

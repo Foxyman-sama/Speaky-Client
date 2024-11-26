@@ -3,10 +3,7 @@
 
 #include <QAbstractListModel>
 
-struct UserMessage {
-  QString username;
-  QString message;
-};
+#include "Packages/packages.h"
 
 class ChatModel : public QAbstractListModel {
   Q_OBJECT
@@ -20,13 +17,13 @@ class ChatModel : public QAbstractListModel {
 
   QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
-  void append(UserMessage user_message);
+  void append(MessagePackage user_message);
 
   QHash<int, QByteArray> roleNames() const override;
 
  private:
   QHash<int, QByteArray> role_names;
-  QList<UserMessage> user_messages;
+  QList<MessagePackage> user_messages;
 };
 
 #endif  // CHATMODEL_H

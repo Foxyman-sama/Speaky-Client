@@ -24,9 +24,10 @@ qt_add_qml_module(appSpeaky-Client
         QML_FILES Chat.qml
         QML_FILES BottomPanel.qml
         QML_FILES RegistrationForm.qml
-        SOURCES backend.h backend.cpp
+        SOURCES network.h network.cpp
         RESOURCES .clang-format
         SOURCES chatmodel.h chatmodel.cpp
+        RESOURCES TODO.md
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -64,3 +65,4 @@ set(QML_IMPORT_PATH ${QML_IMPORT_PATH}
     FORCE
 )
 
+add_subdirectory(Packages)

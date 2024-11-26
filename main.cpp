@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "backend.h"
+#include "network.h"
 #include "chatmodel.h"
 
 int main(int argc, char* argv[]) {
@@ -18,8 +18,8 @@ int main(int argc, char* argv[]) {
   ChatModel model;
   engine.rootContext()->setContextProperty("chat_model", &model);
 
-  Backend backend { model, nullptr };
-  engine.rootContext()->setContextProperty("backend", &backend);
+  Network network { model, nullptr };
+  engine.rootContext()->setContextProperty("network", &network);
 
   engine.loadFromModule("Speaky-Client", "Main");
 

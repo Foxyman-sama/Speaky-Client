@@ -21,12 +21,13 @@ Rectangle {
     width: 412
     height: 123
     clip: true
-
+    // @disable-check M16
     color: "black"
     font.pixelSize: 24
     font.family: "Inter"
+    // @disable-check M16
     wrapMode: Text.WrapAnywhere
-
+    // @disable-check M16
     background: Rectangle {
       radius: 15
       border.width: 2

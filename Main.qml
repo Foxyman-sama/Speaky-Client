@@ -24,7 +24,7 @@ ApplicationWindow {
   RegistrationForm {
     id: registration_form
     onRegistrate: {
-      backend.register_on_server(input_room_id_text, input_name_text)
+      network.register_on_server(input_room_id_text, input_name_text)
       stack.push(main_page)
     }
   }
