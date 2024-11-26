@@ -25,7 +25,19 @@ ApplicationWindow {
     id: registration_form
     onRegistrate: {
       network.register_on_server(input_room_id_text, input_name_text)
+    }
+  }
+
+  Connections {
+    target: network
+
+    function onSuccesfulRegistrationEmitted() {
+      console.log("Success")
       stack.push(main_page)
+    }
+
+    function onFailureRegistrationEmitted() {
+      console.log("Failure")
     }
   }
 }

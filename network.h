@@ -18,24 +18,29 @@ class Network : public QObject {
   explicit Network(ChatModel& model, QObject* parent = nullptr) : model { model }, QObject { parent } {}
 
   Q_INVOKABLE void register_on_server(QString room_id, QString name) {
-    connect();
+    try {
+      connect();
 
-    const RegistrationPackage registration_package { room_id.toStdString(), name.toStdString() };
-    write_into_socket(socket, registration_package);
+      const RegistrationPackage registration_package { room_id.toStdString(), name.toStdString() };
+      write_into_socket(socket, registration_package);
 
-    const auto status_package { read_from_socket<StatusPackage>(socket) };
-    if (status_package.status == "OK") {
-      const auto message_package { read_from_socket<MessagePackage>(socket) };
-      while (message_package.username.empty() == false) {
-        model.append(message_package);
+      const auto status_package { read_from_socket<StatusPackage>(socket) };
+      if (status_package.status == "OK") {
+        const auto message_package { read_from_socket<MessagePackage>(socket) };
+        while (message_package.username.empty() == false) {
+          model.append(message_package);
+        }
       }
-    }
 
-    emit register_on_serverEmitted();
+      emit succesfulRegistrationEmitted();
+    } catch (...) {
+      emit failureRegistrationEmitted();
+    }
   }
 
  signals:
-  void register_on_serverEmitted();
+  void succesfulRegistrationEmitted();
+  void failureRegistrationEmitted();
 
  private:
   void connect() {
