@@ -37,6 +37,20 @@ class Network : public QObject {
                        boost::asio::buffer(internet_package.get_data(),
                                            internet_package.header_lentgh + internet_package.get_body_length()));
 
+    InternetPackage internet_package2;
+    boost::asio::read(socket, boost::asio::buffer(internet_package2.get_data(), internet_package2.header_lentgh));
+    internet_package2.reallocate();
+    boost::asio::read(socket, boost::asio::buffer(internet_package2.get_body(), internet_package2.get_body_length()));
+
+    boost::property_tree::ptree ptree;
+    std::istringstream iss { std::string { internet_package2.get_body() } };
+    boost::property_tree::read_json(iss, ptree);
+
+    StatusPackage status_package { ptree };
+    if (status_package.status == "OK") {
+      qDebug() << "Everything's OK";
+    }
+
     emit register_on_serverEmitted();
   }
 

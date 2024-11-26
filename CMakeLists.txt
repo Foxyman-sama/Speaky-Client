@@ -27,7 +27,7 @@ qt_add_qml_module(appSpeaky-Client
         SOURCES network.h network.cpp
         RESOURCES .clang-format
         SOURCES chatmodel.h chatmodel.cpp
-        RESOURCES TODO.md
+        RESOURCES
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
