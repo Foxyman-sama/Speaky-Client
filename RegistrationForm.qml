@@ -5,19 +5,24 @@ import QtQuick.Layouts 2.15
 Rectangle {
   property alias input_room_id_text: input_room_id.text
   property alias input_name_text: input_name.text
+
   signal registrate
 
   id: root
 
   ColumnLayout {
     anchors.fill: parent
+
     Item {
       Layout.fillWidth: true
       Layout.fillHeight: true
     }
-    Row {
+
+    RowLayout {
       Layout.fillWidth: true
       Layout.alignment: Qt.AlignVCenter
+      Layout.leftMargin: 10
+      Layout.rightMargin: 10
 
       Text {
         id: room_id_label
@@ -25,12 +30,17 @@ Rectangle {
       }
 
       TextField {
+        Layout.fillWidth: true
+
         id: input_room_id
       }
     }
-    Row {
+
+    RowLayout {
       Layout.fillWidth: true
       Layout.alignment: Qt.AlignVCenter
+      Layout.leftMargin: 10
+      Layout.rightMargin: 10
 
       Text {
         id: name_label
@@ -38,11 +48,17 @@ Rectangle {
       }
 
       TextField {
+        Layout.fillWidth: true
+
         id: input_name
       }
     }
+
     Button {
       Layout.fillWidth: true
+      Layout.alignment: Qt.AlignVCenter
+      Layout.leftMargin: 10
+      Layout.rightMargin: 10
 
       Text {
         anchors.centerIn: parent
