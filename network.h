@@ -20,24 +20,22 @@ class Network : public QObject {
   Q_INVOKABLE void register_on_server(QString room_id, QString name) {
     connect();
 
-    // RegisterPackage register { "1", "Dima" };
-
-    InternetPackage package;
-    RegisterPackage p { "1", "Dima" };
-    const auto json { p.make_json() };
+    RegisterPackage register_package { room_id.toStdString(), name.toStdString() };
+    const auto register_json { register_package.make_json() };
 
     std::ostringstream oss;
-    boost::property_tree::write_json(oss, json);
-
+    boost::property_tree::write_json(oss, register_json);
     const auto json_str { oss.str() };
     const auto json_size { json_str.size() };
-    std::memcpy(package.get_data(), &json_size, package.header_lentgh);
 
-    package.reallocate();
-    std::memcpy(package.get_body(), json_str.c_str(), package.get_body_length());
+    InternetPackage internet_package;
+    std::memcpy(internet_package.get_data(), &json_size, internet_package.header_lentgh);
+    internet_package.reallocate();
+    std::memcpy(internet_package.get_body(), json_str.c_str(), internet_package.get_body_length());
 
     boost::asio::write(socket,
-                       boost::asio::buffer(package.get_data(), package.header_lentgh + package.get_body_length()));
+                       boost::asio::buffer(internet_package.get_data(),
+                                           internet_package.header_lentgh + internet_package.get_body_length()));
 
     emit register_on_serverEmitted();
   }
@@ -46,22 +44,6 @@ class Network : public QObject {
   void register_on_serverEmitted();
 
  private:
-  void send(QString sent_data) {
-    boost::asio::write(socket, boost::asio::buffer(sent_data.toStdString()));
-    qDebug() << "sent data: " << sent_data;
-  }
-
-  QString receive() {
-    boost::asio::streambuf buf;
-    boost::asio::read_until(socket, buf, '@');
-
-    std::istream is { &buf };
-    std::string received;
-    std::getline(is, received, '@');
-    qDebug() << "received data: " << received;
-    return QString::fromStdString(received);
-  }
-
   void connect() {
     boost::asio::ip::tcp::resolver::query resolver_query { "127.0.0.1", "9090",
                                                            boost::asio ::ip::tcp::resolver::query::numeric_service };
