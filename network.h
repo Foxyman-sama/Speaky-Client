@@ -30,9 +30,12 @@ class Network : public QObject {
         while (message_package.username.empty() == false) {
           model.append(message_package);
         }
+
+        emit succesfulRegistrationEmitted();
+      } else if (status_package.status == "NAME TAKEN") {
+        emit nameTakenEmitted();
       }
 
-      emit succesfulRegistrationEmitted();
     } catch (...) {
       emit failureRegistrationEmitted();
     }
@@ -40,6 +43,7 @@ class Network : public QObject {
 
  signals:
   void succesfulRegistrationEmitted();
+  void nameTakenEmitted();
   void failureRegistrationEmitted();
 
  private:

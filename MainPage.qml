@@ -21,8 +21,8 @@ Rectangle {
     width: 412
     height: 123
     clip: true
-    // @disable-check M16
-    color: "black"
+
+    color: "blue"
     font.pixelSize: 24
     font.family: "Inter"
     // @disable-check M16

@@ -39,5 +39,10 @@ ApplicationWindow {
     function onFailureRegistrationEmitted() {
       console.log("Failure")
     }
+
+    function onNameTakenEmitted() {
+      console.log("Name Taken")
+      registration_form.input_name_text = "NAME TAKEN"
+    }
   }
 }
